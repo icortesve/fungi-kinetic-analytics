@@ -1,35 +1,62 @@
-# Análisis Cinético de Crecimiento Fúngico
+# 🍄 Fungi Kinetic Analytics Pipeline
 
-Este repositorio contiene las herramientas necesarias para procesar, modelar y analizar datos cinéticos de crecimiento fúngico obtenidos a partir de experimentos experimentales.
+Pipeline automatizado y de alto rendimiento para el análisis, modelado matemático y visualización interactiva de la cinética de crecimiento fúngico (10+ aislados) mediante Python, SciPy y Plotly Express.
 
-## Descripción del Proyecto
-El objetivo principal es automatizar el ajuste de datos experimentales de biomasa vs. tiempo a un **modelo logístico (sigmoideo)**, permitiendo obtener parámetros cinéticos clave de forma rápida y reproducible.
+---
 
-## Características principales
-- **Procesamiento automático:** Lectura y análisis de múltiples archivos CSV.
-- **Modelado Cinético:** Ajuste de curvas mediante modelos logísticos para calcular:
-    - `mu` ($\mu$): Tasa de crecimiento específico.
-    - `K`: Capacidad de carga máxima.
-    - Bondad de ajuste (R² y RMSE).
-- **Reporte Automático:** Generación de un archivo Excel (`Resultados_Cineticos.xlsx`) con los parámetros obtenidos para todos los aislamientos analizados.
+## 📂 Estructura del Proyecto
 
-## Estructura del Repositorio
-- `analisis.ipynb`: Notebook principal con el flujo de análisis.
-- `utils.py`: Funciones de soporte para el cálculo cinético.
-- `.gitignore`: Configuración para excluir archivos innecesarios o sensibles.
+fungi-kinetic-analytics/
+│
+├── data/
+│   ├── Datos_Fermentacion_Completo.xlsx   # Archivo único con las series de tiempo (hojas por cepa)
+│   └── Resultados_Cineticos.xlsx          # Reporte consolidado con parámetros y ranking
+│
+├── notebooks/
+│   └── fungi_kinetic_analysis.ipynb       # Cuaderno interactivo principal
+│
+├── src/
+│   └── utils.py                           # Funciones modulares (Modelo logístico y ajuste curve_fit)
+│
+├── requirements.txt                       # Dependencias del entorno
+└── README.md                              # Documentación del proyecto
 
-## Nota sobre los Datos
-Para mantener la integridad y limpieza del repositorio, **la carpeta `data` y los archivos de datos crudos (`.csv`) han sido excluidos del control de versiones mediante `.gitignore`**. 
+---
 
-Si deseas ejecutar este análisis con tus propios datos:
-1. Crea una carpeta llamada `data` en el directorio raíz.
-2. Coloca tus archivos `.csv` (con columnas `tiempo` y `biomasa`) dentro de esa carpeta.
-3. Ejecuta el notebook `analisis.ipynb`.
+## 🚀 Tecnologías y Stack Científico
+- **Python 3.x**
+- **Pandas & NumPy:** Manipulación y estructuración eficiente de series de datos.
+- **SciPy (curve_fit):** Ajuste de mínimos cuadrados no lineales basado en el modelo logístico sigmoideo.
+- **Scikit-learn (r2_score):** Evaluación de la bondad de ajuste de los modelos.
+- **Plotly Express:** Visualización interactiva avanzada (exploración de curvas y mapa cinético).
 
-## Requisitos
-El proyecto requiere Python 3 y las siguientes librerías:
-- `pandas`
-- `numpy`
-- `scipy`
-- `sklearn`
-- `openpyxl`
+---
+
+## 📊 Metodología y Criterio de Desempeño
+
+1. **Modelado Cinético:** Se ajustan los datos experimentales de tiempo vs. biomasa al modelo logístico sigmoideo: K / (1 + ((K - N0) / N0) * exp(-mu * t)), permitiendo extraer la tasa específica de crecimiento (mu) y la capacidad de carga (K).
+2. **Matriz de Selección (mu x K):** Para identificar cepas "super-productoras", se calcula un índice ponderado que equilibra la velocidad de desarrollo con el rendimiento máximo de biomasa, penalizando los extremos ineficientes y clasificando automáticamente a las mejores cepas del set.
+
+---
+
+## 🛠️ Instrucciones de Instalación y Uso
+
+1. Clona o ubícate en la carpeta del repositorio.
+2. Instala las dependencias necesarias ejecutando en tu terminal:
+   pip install -r requirements.txt
+3. Abre el entorno de Jupyter e inicia el cuaderno ejecutando:
+   jupyter notebook notebooks/fungi_kinetic_analysis.ipynb
+4. Ejecuta las celdas secuencialmente para generar los datos sintéticos, correr el ajuste no lineal y desplegar los gráficos interactivos y el reporte ejecutivo.
+
+---
+
+## 👤 Autor y Contacto
+
+Desarrollado como parte de proyectos orientados a la integración de bioinformática, ingeniería de bioprocesos y análisis avanzado de datos.
+
+- **GitHub:** [TuUsuarioGitHub](https://github.com/TuUsuarioGitHub)
+- **LinkedIn:** [TuPerfilLinkedIn](https://linkedin.com/in/TuPerfilLinkedIn)
+- **Correo Electrónico:** tu.correo@dominio.com
+
+---
+*Este proyecto se encuentra bajo los términos de la Licencia MIT.*
